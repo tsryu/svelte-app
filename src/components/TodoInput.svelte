@@ -1,3 +1,9 @@
+<script>
+  export let todoValue;
+  export let handleKeyup;
+  export let handleInsert;
+</script>
+
 <style lang="scss">
   @import "../styles/modules.scss";
   @import "../styles/variables.scss";
@@ -35,5 +41,9 @@
   }
 </style>
 
-<input type="text" placeholder="새로운 일정을 입력해 주세요" />
+<input
+  type="text"
+  placeholder="새로운 일정을 입력해 주세요"
+  bind:value={todoValue}
+  on:keyup={e => handleKeyup(e)} />
 <button type="button">추가</button>

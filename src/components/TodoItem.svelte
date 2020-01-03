@@ -1,27 +1,27 @@
 <script>
   import icon from "~/images/remove-icon.svg"; // rollup-plugin-alias, rollup-plugin-svg로 사용 가능
+
+  export let todo;
+  export let handleCheck;
+  export let handleRemove;
+  export let handleModify;
 </script>
 
 <style lang="scss">
   @import "../styles/modules.scss";
   @import "../styles/variables.scss";
-
   li {
     @include space-between;
     margin: 1rem 0;
-
     &:first-child {
       margin-top: 0;
     }
-
     &:last-child {
       margin-bottom: 0;
     }
   }
-
   input {
     display: none;
-
     &:checked {
       & + label {
         border-color: $svelte-theme-color;
@@ -99,10 +99,31 @@
 </style>
 
 <li>
-  <input type="checkbox" id="todoCheck" class="chk-form" />
-  <label for="todoCheck" />
-  <span>할일</span>
+  <input
+    type="checkbox"
+    id={`todoCheck${todo.id}`}
+    class="chk-form"
+    checked={todo.done} />
+  <label for={`todoCheck${todo.id}`} />
+  <!-- dynamic class -->
+  <span class:done={todo.done}> 
+    {todo.content}
+  </span>
+
   <button type="button">
     <img src={icon} alt="remove todo item" />
   </button>
 </li>
+
+<!-- 조건문 #1 -->
+<!-- {#if answer === 42}
+	<p>what was the question?</p>
+{/if} -->
+<!-- 조건문 #2 -->
+<!-- {#if porridge.temperature > 100}
+	<p>too hot!</p>
+{:else if 80 > porridge.temperature}
+	<p>too cold!</p>
+{:else}
+	<p>just right!</p>
+{/if} -->
