@@ -46,4 +46,4 @@
   placeholder="새로운 일정을 입력해 주세요"
   bind:value={todoValue}
   on:keyup={e => handleKeyup(e)} />
-<button type="button">추가</button>
+<button type="button" on:click={handleInsert}>추가</button>

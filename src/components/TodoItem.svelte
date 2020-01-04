@@ -103,14 +103,14 @@
     type="checkbox"
     id={`todoCheck${todo.id}`}
     class="chk-form"
+    on:click={() => handleCheck(todo.id, todo.done)}
     checked={todo.done} />
   <label for={`todoCheck${todo.id}`} />
   <!-- dynamic class -->
-  <span class:done={todo.done}> 
+  <span class:done={todo.done} on:dblclick={e => handleModify(e, todo.id)}>
     {todo.content}
   </span>
-
-  <button type="button">
+  <button type="button" on:click={() => handleRemove(todo.id)}>
     <img src={icon} alt="remove todo item" />
   </button>
 </li>

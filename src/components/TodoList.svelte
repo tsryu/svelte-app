@@ -23,7 +23,7 @@
     <li>{i + 1}: {item.name}</li>
   {/each} -->
   {#each todos as todo}
-     <TodoItem {todo} />
+     <TodoItem {todo} {handleCheck} {handleModify} {handleRemove} />
   {:else}
     <p>No tasks today!</p>
   {/each}
