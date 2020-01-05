@@ -1,10 +1,6 @@
 <script>
   import TodoItem from "~/components/TodoItem.svelte";
-
-  export let todos;
-  export let handleCheck;
-  export let handleRemove;
-  export let handleModify;
+  import { todos } from "~/store.js";
 </script>
 
 <style lang="scss">
@@ -22,8 +18,8 @@
     {#each items as item, i}
     <li>{i + 1}: {item.name}</li>
   {/each} -->
-  {#each todos as todo}
-     <TodoItem {todo} {handleCheck} {handleModify} {handleRemove} />
+   {#each $todos as todo}
+    <TodoItem {todo} />
   {:else}
     <p>No tasks today!</p>
   {/each}

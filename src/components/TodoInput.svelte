@@ -1,7 +1,20 @@
 <script>
-  export let todoValue;
-  export let handleKeyup;
-  export let handleInsert;
+  import {todos, todoValue} from "~/store.js";
+  
+  const handleInsert = () => {
+    if ($todoValue) {
+      todos.insert($todoValue);
+      todoValue.keyup(``);
+    } else {
+      alert(`내용을 입력해 주세요.`);
+    }
+  };
+const handleKeyup = e => {
+    todoValue.keyup(e.target.value);
+    if (e.keyCode === 13) {
+        handleInsert();
+    }
+};
 </script>
 
 <style lang="scss">
@@ -44,6 +57,7 @@
 <input
   type="text"
   placeholder="새로운 일정을 입력해 주세요"
-  bind:value={todoValue}
-  on:keyup={e => handleKeyup(e)} />
+  value={$todoValue}
+  on:keyup={handleKeyup} />
+  <!-- 현재 상태값은 $ 접두사를 이용해 참조합니다. 이때, store의 상태값을 바인딩할 때는 bind:value 대신 value를 사용해야 합니다. bind:value를 사용할 경우 에러가 발생합니다. -->
 <button type="button" on:click={handleInsert}>추가</button>

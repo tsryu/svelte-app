@@ -4,39 +4,7 @@
   import TodoInput from "~/components/TodoInput.svelte";
   import TodoList from "~/components/TodoList.svelte";
   let title = `TODO LIST`;
-  let todoValue = ``; // initial state
 
-  let todos = [
-    {
-      id: 0,
-      content: `첫 번째 할일`,
-      done: false
-    },
-    {
-      id: 1,
-      content: `두 번째 할일`,
-      done: true
-    },
-    {
-      id: 2,
-      content: `세 번째 할일`,
-      done: false
-    }
-  ];
-
-  let todoId = todos[todos.length - 1][`id`]; // todos의 마지막 item의 id
-  
-  let handleCheck = (id, done) => {
-    const index = todos.findIndex(todo => todo.id === id);
-    todos[index][`done`] = !done;
-  };
-
-  let handleKeyup = e => {
-    todoValue = e.target.value; // keyup 이벤트 발생시 todoValue 값을 업데이트
-    if (e.keyCode === 13) {
-      handleInsert();
-    }
-  };
   let handleInsert = () => {
     if (todoValue) {
       const newTodo = {
@@ -44,34 +12,17 @@
         content: todoValue,
         done: false
       };
+
       todos[todos.length] = newTodo;
       todoValue = ``;
     } else {
       alert(`내용을 입력해 주세요.`);
     }
   };
-
-  let handleModify = (e, id) => {
-    const element = e.target;
+  let handleCheck = (id, done) => {
     const index = todos.findIndex(todo => todo.id === id);
 
-    const modify = function() {
-      element.removeAttribute(`contenteditable`);
-      todos[index][`content`] = element.textContent;
-      element.removeEventListener(`blur`, modify, false);
-    };
-
-    element.setAttribute(`contenteditable`, true);
-    element.focus();
-    element.addEventListener(`blur`, modify, false);
-  };
-  let handleRemove = id => {
-    const index = todos.findIndex(todo => todo.id === id);
-    const newTodos = [
-      ...todos.slice(0, index),
-      ...todos.slice(index + 1, todos.length)
-    ];
-    todos = newTodos;
+    todos[index][`done`] = !done;
   };
 </script>
 
@@ -80,6 +31,6 @@
 </style>
 
 <PageTemplate {logo} {title}>
-  <TodoInput {todoValue} {handleKeyup} {handleInsert}/>
-  <TodoList {todos} {handleCheck} {handleModify} {handleRemove} />
+  <TodoInput />
+  <TodoList />
 </PageTemplate>
